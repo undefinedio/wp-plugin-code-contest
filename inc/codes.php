@@ -6,8 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Codes {
 
 	public function __construct() {
-
-		echo $this->getSerial();
+		//
 	}
 
 	/**
@@ -70,7 +69,7 @@ class Codes {
 	 *
 	 * @return bool
 	 */
-	private function isKeyUnique($key){
+	private function isKeyUnique($key) {
 		global $wpdb;
 		$table_name      = $wpdb->prefix . "code_contest";
 		if($wpdb->get_results( 'SELECT * FROM '.$table_name.' WHERE code = "'.strtoupper($key).'"', OBJECT )){
@@ -80,7 +79,12 @@ class Codes {
 		}
 	}
 
-	private function saveKey($key){
+	/**
+	 * Save key to database
+	 *
+	 * @param $key
+	 */
+	private function saveKey($key) {
 		global $wpdb;
 		$table_name      = $wpdb->prefix . "code_contest";
 		$wpdb->insert(
@@ -88,6 +92,5 @@ class Codes {
 			array('code' => $key	)
 		);
 	}
-
 
 }
