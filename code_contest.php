@@ -1,9 +1,4 @@
 <?php
-
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
-
 /*
 Plugin Name: Code Contest
 Plugin URI: http://unde.fined.io
@@ -29,6 +24,13 @@ License:
 
 */
 
+/**
+ * TEMP
+ */
+ini_set( 'display_errors', 1 );
+ini_set( 'display_startup_errors', 1 );
+error_reporting( - 1 );
+
 class CodeContest {
 
 	/*--------------------------------------------*
@@ -43,54 +45,51 @@ class CodeContest {
 	 * Constructor
 	 */
 	function __construct() {
-		$new_version = '1.0.2';
+		$new_version = '1.0.1';
 
 		if ( get_option( 'CODE_CONTEST_VERSION_KEY' ) != $new_version ) {
-
 			$this->update_database_table();
-			update_option('CODE_CONTEST_VERSION_KEY', $new_version);
+			update_option( 'CODE_CONTEST_VERSION_KEY', $new_version );
 		}
-
 		//register an activation hook for the plugin
 		register_activation_hook( __FILE__, array( &$this, 'install_code_contest' ) );
-
 		//Hook up to the init action
 		add_action( 'init', array( &$this, 'init_code_contest' ) );
-
 	}
 
 	/**
-	 * Runs when the plugin is activated
+	 * Update database
 	 */
 	function update_database_table() {
-
 		global $wpdb;
-
-
-		$table_name = $wpdb->prefix . "code_contest";
+		$table_name      = $wpdb->prefix . "code_contest";
 		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = "CREATE TABLE $table_name (
   id mediumint(9) NOT NULL AUTO_INCREMENT,
   code varchar(55) DEFAULT '' NOT NULL,
+  email varchar(55) DEFAULT '' NOT NULL,
+  name varchar(55) DEFAULT '' NOT NULL,
   UNIQUE KEY id (id)
 ) $charset_collate;";
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
-
-
 	}
 
-	public function includes(){
+	/**
+	 * Include classes
+	 */
+	public function includes() {
 		include_once( 'inc/admin-page.php' );
-
 	}
 
-	public function initializeAdmin(){
+	/**
+	 * Initialise Admin classes
+	 */
+	public function initializeAdmin() {
 		$this->adminPages = new Admin_Pages();
 	}
-
 
 	/**
 	 * Runs when the plugin is activated
@@ -136,6 +135,11 @@ class CodeContest {
 		// TODO define your filter method here
 	}
 
+	/**
+	 * Render shortcode
+	 *
+	 * @param $atts
+	 */
 	function render_shortcode( $atts ) {
 		// Extract the attributes
 		extract( shortcode_atts( array(
