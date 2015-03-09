@@ -1,0 +1,18 @@
+.results {
+    width: 100%;
+    max-width: 700px;
+}
+
+.cc_admin .full-width {
+    width: 100%;
+}
+
+.cc_admin textarea.full-width {
+    height: 200px;
+}
+
+.cc_admin .image-preview {
+    margin-top: 2em;
+    max-width: 500px;
+    max-height: 500px;
+}

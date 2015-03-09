@@ -93,4 +93,21 @@ class Codes {
 		);
 	}
 
+	/**
+	 * Generate a set of serial keys`
+	 *
+	 * @param int $amount
+	 *
+	 * @return array
+	 */
+	public function generateKeys($amount = 100){
+		$i = 1;
+		$keys = [];
+		while($i <= $amount) {
+			array_push($keys, $this->getSerial() );
+			$i++;
+		}
+		return $keys;
+	}
+
 }
