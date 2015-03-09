@@ -82,13 +82,24 @@ class CodeContest {
 	 */
 	public function includes() {
 		include_once( 'inc/admin-page.php' );
+		include_once( 'inc/admin-ajax.php' );
+		include_once( 'inc/shortcode.php' );
 	}
 
 	/**
 	 * Initialise Admin classes
 	 */
 	public function initializeAdmin() {
-		$this->adminPages = new Admin_Pages();
+		new Admin_Pages();
+		new Admin_Ajax();
+	}
+
+	/**
+	 * Initialise classes
+	 */
+	public function initialize() {
+
+		new Shortcode();
 	}
 
 	/**
@@ -116,6 +127,9 @@ class CodeContest {
 		} else {
 			//this will run when on the frontend
 		}
+
+		//load on all pages
+		$this->initialize();
 
 		/*
 		 * TODO: Define custom functionality for your plugin here
@@ -155,6 +169,9 @@ class CodeContest {
 	 */
 	private function register_scripts_and_styles() {
 		if ( is_admin() ) {
+			wp_enqueue_media();
+			wp_enqueue_style( self::slug . '-admin-style', plugins_url( '/assets/admin.css', __FILE__ ), array(), '1.0.0', 'all' );
+			wp_enqueue_script( self::slug . '-admin-script', plugins_url( '/assets/admin.js', __FILE__ ), array(), '1.0.0', 'all' );
 			$this->load_file( self::slug . '-admin-script', '/assets/admin.js', true );
 			$this->load_file( self::slug . '-admin-style', '/assets/admin.css' );
 		} else {
