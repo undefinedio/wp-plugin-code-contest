@@ -36,7 +36,7 @@ jQuery(document).ready(function ($) {
             wp.media.editor.send.attachment = function (props, attachment) {
                 if (_custom_media) {
                     $("#" + id).val(attachment.url);
-                    $('.js-image-preview').attr('src', attachment.url);
+                    $('#' + id + '_preview').attr('src', attachment.url);
                 } else {
                     return _orig_send_attachment.apply(this, [props, attachment]);
                 }

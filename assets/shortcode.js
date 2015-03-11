@@ -4,6 +4,9 @@ jQuery(document).ready(function ($) {
      */
     var currentUrl = window.codeContest.currentUrl;
     var ajaxUrl = window.codeContest.ajaxUrl;
+    var FBShareCopy = window.codeContest.FBShare_copy;
+    var FBShareTitle = window.codeContest.FBShare_title;
+    var FBShareImage = window.codeContest.FBShare_image;
 
     /**
      * Form handler to check if code is correct
@@ -75,11 +78,10 @@ jQuery(document).ready(function ($) {
             FB.ui(
                 {
                     method: 'feed',
-                    name: 'This is the content of the "name" field.',
+                    name: FBShareTitle,
                     link: currentUrl,
-                    picture: 'http://www.groupstudy.in/img/logo3.jpeg',
-                    caption: 'Top 3 reasons why you should care about your finance',
-                    description: 't have a glut of taxpayers…',
+                    picture: FBShareImage,
+                    description: FBShareCopy,
                     message: ''
                 });
         });

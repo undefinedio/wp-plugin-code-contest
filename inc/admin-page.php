@@ -91,8 +91,32 @@ class Admin_Pages {
 		);
 
 		add_settings_field(
+			'share_title', // ID
+			'Facebook Share titel', // Title
+			array( $this, 'share_title_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
+
+		add_settings_field(
+			'share_copy', // ID
+			'Facebook Share tekst', // Title
+			array( $this, 'share_copy_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
+
+		add_settings_field(
+			'share_image', // ID
+			'Facebook Share  Image', // Title
+			array( $this, 'share_image_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
+
+		add_settings_field(
 			'dev_title', // ID
-			'<h2>Opties enkel voor develeopers</h2>', // Title
+			'<h2>Opties enkel voor developers</h2>', // Title
 			array( $this, 'dev_title_callback' ), // Callback
 			'code_contest', // Page
 			'cc_page' // Section
@@ -113,6 +137,22 @@ class Admin_Pages {
 			'code_contest', // Page
 			'cc_page' // Section
 		);
+
+		add_settings_field(
+			'mailchimp_api_key', // ID
+			'Mailchimp API key', // Title
+			array( $this, 'mailchimp_api_key_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
+
+		add_settings_field(
+			'mailchimp_list_id', // ID
+			'Mailchimp list ID', // Title
+			array( $this, 'mailchimp_list_id_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
 	}
 
 	/**
@@ -128,6 +168,22 @@ class Admin_Pages {
 
 	public function fb_page_callback() {
 		$this->template_input_field( 'fb_page' );
+	}
+
+	public function mailchimp_api_key_callback() {
+		$this->template_input_field( 'mailchimp_api_key' );
+	}
+
+	public function mailchimp_list_id_callback() {
+		$this->template_input_field( 'mailchimp_list_id' );
+	}
+
+	public function share_title_callback() {
+		$this->template_input_field( 'share_title' );
+	}
+
+	public function share_copy_callback() {
+		$this->template_textarea_field( 'share_copy' );
 	}
 
 	public function fb_id_callback() {
@@ -159,11 +215,19 @@ class Admin_Pages {
 	}
 
 	public function image_callback() {
+		$this->template_image_field( 'image' );
+	}
+
+	public function share_image_callback() {
+		$this->template_image_field( 'share_image' );
+	}
+
+	public function template_image_field( $field ) {
 		printf(
-			'<input id="image" name="cc_options[image]" type="text" value="%1$s"/>
-			<input id="image_button" class="js-media-button button" name="image_button" type="button" value="Upload"/><br>
-			<img class="js-image-preview image-preview" src="%1$s" alt="Image preview"/>',
-			isset( $this->options['image'] ) ? esc_attr( $this->options['image'] ) : ''
+			"<input id='$field' name='cc_options[$field]' type='text' value='%1\$s'/>
+			<input id='".$field."_button' class='js-media-button button' name='".$field."_button' type='button' value='Upload'/><br>
+			<img id='".$field."_preview' class='js-image-preview image-preview'  src='%1\$s' alt='Image preview'/>",
+			isset( $this->options[$field] ) ? esc_attr( $this->options[$field] ) : ''
 		);
 	}
 
