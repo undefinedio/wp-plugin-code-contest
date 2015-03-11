@@ -10,30 +10,26 @@ class Shortcode {
 	}
 
 	/**
-	 * include classes
-	 */
-	public function includes() {
-
-	}
-
-	/**
-	 * Ajax callback for code generation
+	 * Add shortcode logic
 	 *
-	 * @post amount
+	 * @param $atts Default parameters from Wordpress
 	 */
 	public function code_contest_shortcode( $atts ) {
 		$options = get_option( 'cc_options' );
-//		$atts    = shortcode_atts( array(
-//			'image' => ''
-//		), $atts, 'bartag' );
 
-		var_dump( $options );
-
-		//return "foo = {$atts['foo']}";
+		include( $this->fetch_template() );
 	}
 
+	/**
+	 * See if the default template is needed or if there is a custom template in theme folder
+	 *
+	 * @return string path to template
+	 */
 	private function fetch_template() {
+		$file = get_stylesheet_directory() . '/code-contest/shortcode.php';
 
+		// check if file exists in theme folder else take default shortcode template
+		return ( file_exists( $file ) ) ? $file : sprintf( "%s/templates/shortcode.php", dirname( dirname( __FILE__ ) ) );
 	}
 
 }

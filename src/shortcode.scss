@@ -1,0 +1,35 @@
+.cc-wrapper {
+  display: table;
+  width: 100%;
+
+  .contest-image,
+  section {
+    display: table-cell;
+    width: 50%;
+  }
+
+  .contest-image {
+    min-height: 500px;
+  }
+
+  section {
+    padding: 0 1em;
+    display: none;
+    h1 {
+      margin-top: 0;
+    }
+    h2 {
+      margin-top: 1em;
+    }
+
+    &.active {
+      display: table-cell;
+    }
+  }
+
+  .fb-like-box {
+    text-align: center;
+    height: 61px;
+    overflow: hidden;
+  }
+}

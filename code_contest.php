@@ -1,5 +1,13 @@
 <?php
-/*
+/* Made with anger and beer by.....
+
+██╗   ██╗███╗   ██╗██████╗ ███████╗███████╗██╗███╗   ██╗███████╗██████╗
+██║   ██║████╗  ██║██╔══██╗██╔════╝██╔════╝██║████╗  ██║██╔════╝██╔══██╗
+██║   ██║██╔██╗ ██║██║  ██║█████╗  █████╗  ██║██╔██╗ ██║█████╗  ██║  ██║
+██║   ██║██║╚██╗██║██║  ██║██╔══╝  ██╔══╝  ██║██║╚██╗██║██╔══╝  ██║  ██║
+╚██████╔╝██║ ╚████║██████╔╝███████╗██║     ██║██║ ╚████║███████╗██████╔╝
+ ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝╚══════╝╚═════╝
+
 Plugin Name: Code Contest
 Plugin URI: http://unde.fined.io
 Version: 0.1
@@ -25,11 +33,13 @@ License:
 */
 
 /**
- * TEMP
+ * TEMP solution for php errors
  */
-ini_set( 'display_errors', 1 );
-ini_set( 'display_startup_errors', 1 );
-error_reporting( - 1 );
+if(gethostname() == "Vincents-MBP.telenet.be"){
+	ini_set( 'display_errors', 1 );
+	ini_set( 'display_startup_errors', 1 );
+	error_reporting( - 1 );
+}
 
 class CodeContest {
 
@@ -38,8 +48,6 @@ class CodeContest {
 	 *--------------------------------------------*/
 	const name = 'Code Contest';
 	const slug = 'code_contest';
-
-	private $adminPages = null;
 
 	/**
 	 * Constructor
@@ -81,6 +89,7 @@ class CodeContest {
 	 * Include classes
 	 */
 	public function includes() {
+		include_once( 'inc/shortcode-ajax.php' );
 		include_once( 'inc/admin-page.php' );
 		include_once( 'inc/admin-ajax.php' );
 		include_once( 'inc/shortcode.php' );
@@ -95,11 +104,29 @@ class CodeContest {
 	}
 
 	/**
+	 * Initialise Shortcode classes
+	 */
+	public function initializeShortcode() {
+		new Shortcode_Ajax();
+		new Shortcode();
+	}
+
+	public function check_code() {
+		echo 'test';
+		wp_die();
+		$codeClass = new Codes();
+		$code      = intval( $_POST['key'] );
+		$check     = $codeClass->checkKey( $code );
+
+		var_dump( $check );
+		wp_die();
+	}
+
+	/**
 	 * Initialise classes
 	 */
 	public function initialize() {
 
-		new Shortcode();
 	}
 
 	/**
@@ -113,23 +140,18 @@ class CodeContest {
 	 * Runs when the plugin is initialized
 	 */
 	function init_code_contest() {
+
 		$this->includes();
+
+		if ( is_admin() ) {
+			$this->initializeAdmin();
+		}
+		$this->initializeShortcode();
+
 		// Setup localization
 		load_plugin_textdomain( self::slug, false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 		// Load JavaScript and stylesheets
 		$this->register_scripts_and_styles();
-
-		// Register the shortcode [code_contest]
-		add_shortcode( 'code_contest', array( &$this, 'render_shortcode' ) );
-
-		if ( is_admin() ) {
-			$this->initializeAdmin();
-		} else {
-			//this will run when on the frontend
-		}
-
-		//load on all pages
-		$this->initialize();
 
 		/*
 		 * TODO: Define custom functionality for your plugin here
@@ -172,11 +194,9 @@ class CodeContest {
 			wp_enqueue_media();
 			wp_enqueue_style( self::slug . '-admin-style', plugins_url( '/assets/admin.css', __FILE__ ), array(), '1.0.0', 'all' );
 			wp_enqueue_script( self::slug . '-admin-script', plugins_url( '/assets/admin.js', __FILE__ ), array(), '1.0.0', 'all' );
-			$this->load_file( self::slug . '-admin-script', '/assets/admin.js', true );
-			$this->load_file( self::slug . '-admin-style', '/assets/admin.css' );
 		} else {
-			$this->load_file( self::slug . '-script', '/assets/widget.js', true );
-			$this->load_file( self::slug . '-style', '/assets/widget.css' );
+			wp_enqueue_style( self::slug . '-shortcode-style', plugins_url( '/assets/shortcode.css', __FILE__ ), array(), '1.0.0', 'all' );
+			wp_enqueue_script( self::slug . '-shortcode-script', plugins_url( '/assets/shortcode.js', __FILE__ ), array(), '1.0.0', 'all' );
 		} // end if/else
 	} // end register_scripts_and_styles
 
