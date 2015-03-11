@@ -7,9 +7,12 @@ class Shortcode_Ajax {
 
 	private $codeclass = '';
 	private $entryClass = '';
+	private $options = '';
 
 	public function __construct() {
 		$this->includes();
+
+		$this->options = get_option( 'cc_options' );
 
 		add_action( 'wp_ajax_cc-checkcode', array( &$this, 'check_code' ) );
 		add_action( 'wp_ajax_cc-fillform', array( &$this, 'enter_contest' ) );
@@ -59,6 +62,9 @@ class Shortcode_Ajax {
 		$html .= 'window.codeContest = {};';
 		$html .= 'window.codeContest.ajaxUrl = "' . admin_url( 'admin-ajax.php' ) . '";';
 		$html .= 'window.codeContest.currentUrl = "http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '";';
+		$html .= 'window.codeContest.FBShare_title = "' . $this->options["share_title"] . '";';
+		$html .= 'window.codeContest.FBShare_copy = "' . $this->options["share_copy"] . '";';
+		$html .= 'window.codeContest.FBShare_image = "' . $this->options["share_image"] . '";';
 		$html .= '</script>';
 
 		echo $html;
