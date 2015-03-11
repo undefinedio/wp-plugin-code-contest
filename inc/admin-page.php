@@ -43,14 +43,6 @@ class Admin_Pages {
 		);
 
 		add_settings_field(
-			'fb_page', // ID
-			'Je Facebook pagina URL', // Title
-			array( $this, 'fb_page_callback' ), // Callback
-			'code_contest', // Page
-			'cc_page' // Section
-		);
-
-		add_settings_field(
 			'intro_title', // ID
 			'Titel intro pagina', // Title
 			array( $this, 'intro_title_callback' ), // Callback
@@ -97,6 +89,30 @@ class Admin_Pages {
 			'code_contest', // Page
 			'cc_page' // Section
 		);
+
+		add_settings_field(
+			'dev_title', // ID
+			'<h2>Opties enkel voor develeopers</h2>', // Title
+			array( $this, 'dev_title_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
+
+		add_settings_field(
+			'fb_page', // ID
+			'Facebook page URL', // Title
+			array( $this, 'fb_page_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
+
+		add_settings_field(
+			'fb_app_id', // ID
+			'facebook App ID', // Title
+			array( $this, 'fb_id_callback' ), // Callback
+			'code_contest', // Page
+			'cc_page' // Section
+		);
 	}
 
 	/**
@@ -106,8 +122,16 @@ class Admin_Pages {
 		echo '<p>Pas de opties hier aan:</p>';
 	}
 
+	public function dev_title_callback() {
+		echo '<p>Deze opties zijn enkel voor developers. Niet aanpassen als je niet weet wat deze beteken.</p>';
+	}
+
 	public function fb_page_callback() {
 		$this->template_input_field( 'fb_page' );
+	}
+
+	public function fb_id_callback() {
+		$this->template_input_field( 'fb_app_id' );
 	}
 
 	public function intro_title_callback() {

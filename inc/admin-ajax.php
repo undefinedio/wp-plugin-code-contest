@@ -7,7 +7,7 @@ class Admin_Ajax {
 
 	public function __construct() {
 		$this->includes();
-		add_action( 'wp_ajax_generate_codes', array( &$this, 'generate_codes' ) );
+		add_action( 'wp_ajax_cc-generate_codes', array( &$this, 'generate_codes' ) );
 	}
 
 	/**
@@ -30,5 +30,4 @@ class Admin_Ajax {
 		echo json_encode( $codes );
 		wp_die();
 	}
-
 }
