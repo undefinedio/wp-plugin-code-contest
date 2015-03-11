@@ -41,6 +41,7 @@ jQuery(document).ready(function ($) {
      */
     (function () {
         var $form = $('#js-form');
+        var $accept = $('.js-checkbox-accept');
 
         $form.submit(function (e) {
             e.preventDefault();
@@ -53,10 +54,13 @@ jQuery(document).ready(function ($) {
                 'key': $('#js-code-input').val(),
                 'name': $form.find('#name').val(),
                 'email': $form.find('#email').val(),
-                'surname': $form.find('#surname').val()
+                'surname': $form.find('#surname').val(),
+                'newsletter': $('.js-checkbox-mailing').is(':checked')
             };
 
-            if (!validateForm('#js-form .required')) {
+            if(!$accept.is(':checked')){
+                $error.html('je moet de voorwaarden accepteren.');
+            }else if (!validateForm('#js-form .required')) {
                 $error.html('Niet alle velden zijn correct ingevuld.');
             } else {
                 $.post(ajaxUrl, data, function (response) {
