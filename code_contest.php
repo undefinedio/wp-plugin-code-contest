@@ -33,17 +33,6 @@ License:
 
 */
 
-require 'vendor/autoload.php';
-
-/**
- * TEMP solution for php errors
- */
-if ( gethostname() == "Vincents-MBP.telenet.be" ) {
-	ini_set( 'display_errors', 1 );
-	ini_set( 'display_startup_errors', 1 );
-	error_reporting( - 1 );
-}
-
 class CodeContest {
 
 	/*--------------------------------------------*
@@ -94,7 +83,7 @@ class CodeContest {
 	public function includes() {
 		include_once( 'inc/codeTrait.php' );
 		include_once( 'inc/shortcode-ajax.php' );
-		include_once( 'inc/admin-page.php' );
+		include_once( 'inc/adminPage.php' );
 		include_once( 'inc/admin-ajax.php' );
 		include_once( 'inc/codeValidator.php' );
 		include_once( 'inc/codeGenerator.php' );
@@ -107,7 +96,7 @@ class CodeContest {
 	 * Initialise Admin classes
 	 */
 	public function initializeAdmin() {
-		new Admin_Pages();
+		new AdminPages();
 		new Admin_Ajax();
 	}
 
