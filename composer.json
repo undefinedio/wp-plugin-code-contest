@@ -1,6 +1,7 @@
 {
-    "name": "vincent/code_contest",
+    "name": "undefinedio/wp-plugin-code-contest",
     "description": "Code contest wordpress plugin",
+    "type": "wordpress-plugin",
     "authors": [
         {
             "name": "Vincent Peters",
@@ -8,6 +9,7 @@
         }
     ],
     "require": {
-        "drewm/mailchimp-api": "~1.0"
+        "drewm/mailchimp-api": "~1.0",
+        "composer/installers": "~1.0"
     }
 }
