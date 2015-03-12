@@ -32,6 +32,8 @@ License:
 
 */
 
+require 'vendor/autoload.php';
+
 /**
  * TEMP solution for php errors
  */
@@ -92,7 +94,10 @@ class CodeContest {
 		include_once( 'inc/shortcode-ajax.php' );
 		include_once( 'inc/admin-page.php' );
 		include_once( 'inc/admin-ajax.php' );
+		include_once( 'inc/codes.php' );
+		include_once( 'inc/entries.php' );
 		include_once( 'inc/shortcode.php' );
+		include_once( 'inc/mailchimp.php' );
 	}
 
 	/**

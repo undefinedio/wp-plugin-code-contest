@@ -7,6 +7,7 @@ class Shortcode_Ajax {
 
 	private $codeclass = '';
 	private $entryClass = '';
+	private $mailchimpClass = '';
 	private $options = '';
 
 	public function __construct() {
@@ -23,10 +24,9 @@ class Shortcode_Ajax {
 	 * include classes
 	 */
 	public function includes() {
-		include_once( 'codes.php' );
-		include_once( 'entries.php' );
-		$this->codeclass  = new Codes();
-		$this->entryClass = new Entries();
+		$this->codeclass      = new Codes();
+		$this->entryClass     = new Entries();
+		$this->mailchimpClass = new MailChimpHandler();
 	}
 
 	/**
@@ -45,6 +45,11 @@ class Shortcode_Ajax {
 	 */
 	public function enter_contest() {
 		$key = $_POST['key'];
+
+		if ( $_POST['newsletter'] == 'true' ) {
+			$this->mailchimpClass->subscribe( $_POST['name'], $_POST['surname'], $_POST['email'] );
+		}
+
 		if ( $this->codeclass->isCodeValide( $key ) == "valid" ) {
 			$this->entryClass->saveEntry( $_POST['name'], $_POST['surname'], $_POST['email'], $_POST['key'] );
 			echo "success";

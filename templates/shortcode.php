@@ -2,7 +2,7 @@
 	<div class="contest-image"
 	     style="background-image: url(<?= $options['image']; ?>); background-size: cover; background-position: center top"></div>
 
-	<section class="intro active ">
+	<section class="intro active">
 		<h1><?= $options['intro_title']; ?></h1>
 
 		<p><?= $options['intro_copy']; ?></p>
@@ -35,6 +35,10 @@
 			<input type="text" placeholder="Naam" class="required" value="Peters" id="surname"/>
 			<input type="email" placeholder="Email" class="required" value="dj.emtec@gmail.com" id="email"/>
 			<input type="hidden" name="Code" value="" id="js-code-input">
+			<input type="checkbox" name="accept" id="accept" value="true" class="js-checkbox-accept">
+			<label for="accept">Ik accepteer de voorwaarden</label><br>
+			<input type="checkbox" name="mailing" id="mailing" value="true" class="js-checkbox-mailing">
+			<label for="mailing">Blijf op de hoogte van de laatste nieuwtjes</label><br>
 
 			<p class="js-error-form error">&nbsp;</p>
 			<input type="submit" value="Verzenden"/>
