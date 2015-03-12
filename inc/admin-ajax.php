@@ -1,4 +1,5 @@
-<?
+<? namespace Undefined\CodeContest;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
@@ -6,15 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Admin_Ajax {
 
 	public function __construct() {
-		$this->includes();
 		add_action( 'wp_ajax_cc-generate_codes', array( &$this, 'generate_codes' ) );
-	}
-
-	/**
-	 * include classes
-	 */
-	public function includes() {
-		include_once( 'codes.php' );
 	}
 
 	/**
@@ -23,7 +16,7 @@ class Admin_Ajax {
 	 * @post amount
 	 */
 	public function generate_codes() {
-		$codeClass = new Codes();
+		$codeClass = new CodeGenerator();
 		$amount    = intval( $_POST['amount'] );
 		$codes     = $codeClass->generateKeys( $amount );
 

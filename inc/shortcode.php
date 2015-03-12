@@ -1,4 +1,5 @@
-<?
+<? namespace Undefined\CodeContest;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly

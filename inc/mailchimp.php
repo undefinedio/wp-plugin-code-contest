@@ -1,4 +1,6 @@
-<?
+<? namespace Undefined\CodeContest;
+use Drewm\MailChimp;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
@@ -11,7 +13,7 @@ class MailChimpHandler {
 	public function __construct() {
 		$this->options = get_option( 'cc_options' );
 		if ( $this->options['mailchimp_api_key'] ) {
-			$this->mailChimp = new \Drewm\MailChimp( $this->options['mailchimp_api_key'] );
+			$this->mailChimp = new MailChimp( $this->options['mailchimp_api_key'] );
 		}
 	}
 
@@ -35,5 +37,4 @@ class MailChimpHandler {
 			) );
 		}
 	}
-
 }

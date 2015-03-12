@@ -1,4 +1,5 @@
-<?
+<? namespace Undefined\CodeContest;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
@@ -8,11 +9,10 @@ class Admin_Pages {
 	 * Holds the values to be used in the fields callbacks
 	 */
 	private $options;
-	private $codes = null;
+	public $entries;
 
 	public function __construct() {
-		$this->includes();
-
+		$this->entries = new Entries();
 		add_action( 'admin_menu', array( &$this, 'add_admin_pages' ) );
 		add_action( 'admin_init', array( &$this, 'register_settings' ) );
 	}
@@ -256,13 +256,6 @@ class Admin_Pages {
 	}
 
 	/**
-	 * include classes
-	 */
-	public function includes() {
-		include_once( 'codes.php' );
-	}
-
-	/**
 	 * Inject admin menu
 	 */
 	public function add_admin_pages() {
@@ -293,6 +286,7 @@ class Admin_Pages {
 	 * Include entries template
 	 */
 	public function show_entries_template() {
+		$entries = $this->entries->getAllEntries();
 		include( sprintf( "%s/templates/entries.php", dirname( dirname( __FILE__ ) ) ) );
 	}
 

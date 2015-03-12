@@ -1,11 +1,12 @@
-<?
+<? namespace Undefined\CodeContest;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
 class Shortcode_Ajax {
 
-	private $codeclass = '';
+	private $codeValidator = '';
 	private $entryClass = '';
 	private $mailchimpClass = '';
 	private $options = '';
@@ -24,7 +25,7 @@ class Shortcode_Ajax {
 	 * include classes
 	 */
 	public function includes() {
-		$this->codeclass      = new Codes();
+		$this->codeValidator  = new CodeValidator();
 		$this->entryClass     = new Entries();
 		$this->mailchimpClass = new MailChimpHandler();
 	}
@@ -34,7 +35,7 @@ class Shortcode_Ajax {
 	 */
 	public function check_code() {
 		$key   = $_POST['key'];
-		$check = $this->codeclass->isCodeValide( $key );
+		$check = $this->codeValidator->isCodeValid( $key );
 
 		echo $check;
 		wp_die();
@@ -50,7 +51,7 @@ class Shortcode_Ajax {
 			$this->mailchimpClass->subscribe( $_POST['name'], $_POST['surname'], $_POST['email'] );
 		}
 
-		if ( $this->codeclass->isCodeValide( $key ) == "valid" ) {
+		if ( $this->codeValidator->isCodeValid( $key ) == "valid" ) {
 			$this->entryClass->saveEntry( $_POST['name'], $_POST['surname'], $_POST['email'], $_POST['key'] );
 			echo "success";
 		} else {
