@@ -1,4 +1,6 @@
 jQuery(document).ready(function ($) {
+
+    $('#js-entries').DataTable();
     /**
      * Form handler to generate new codes
      */

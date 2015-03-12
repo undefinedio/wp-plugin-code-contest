@@ -17,7 +17,7 @@
 		<h2>Stap 2: vul je code in:</h2>
 
 		<form action="#" id="js-code-form">
-			<input placeholder="Je code" type="text" class="js-code-input" value="A5AB-BD1A"/>
+			<input placeholder="Je code" type="text" class="js-code-input" value=""/>
 
 			<p class="js-error error">&nbsp;</p>
 			<input type="submit" value="Verzenden"/>
@@ -31,9 +31,9 @@
 		<p><?= $options['form_copy']; ?></p>
 
 		<form action="#" id="js-form">
-			<input type="text" placeholder="Voornaam" class="required" value="Vincent" id="name"/>
-			<input type="text" placeholder="Naam" class="required" value="Peters" id="surname"/>
-			<input type="email" placeholder="Email" class="required" value="dj.emtec@gmail.com" id="email"/>
+			<input type="text" placeholder="Voornaam" class="required" value="" id="name"/>
+			<input type="text" placeholder="Naam" class="required" value="" id="surname"/>
+			<input type="email" placeholder="Email" class="required" value="" id="email"/>
 			<input type="hidden" name="Code" value="" id="js-code-input">
 			<input type="checkbox" name="accept" id="accept" value="true" class="js-checkbox-accept">
 			<label for="accept">Ik accepteer de voorwaarden</label><br>

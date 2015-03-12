@@ -1,4 +1,5 @@
-<?php
+<?php namespace Undefined\CodeContest;
+
 /* Made with anger and beer by.....
 
 ██╗   ██╗███╗   ██╗██████╗ ███████╗███████╗██╗███╗   ██╗███████╗██████╗
@@ -37,7 +38,7 @@ require 'vendor/autoload.php';
 /**
  * TEMP solution for php errors
  */
-if(gethostname() == "Vincents-MBP.telenet.be"){
+if ( gethostname() == "Vincents-MBP.telenet.be" ) {
 	ini_set( 'display_errors', 1 );
 	ini_set( 'display_startup_errors', 1 );
 	error_reporting( - 1 );
@@ -91,10 +92,12 @@ class CodeContest {
 	 * Include classes
 	 */
 	public function includes() {
+		include_once( 'inc/codeTrait.php' );
 		include_once( 'inc/shortcode-ajax.php' );
 		include_once( 'inc/admin-page.php' );
 		include_once( 'inc/admin-ajax.php' );
-		include_once( 'inc/codes.php' );
+		include_once( 'inc/codeValidator.php' );
+		include_once( 'inc/codeGenerator.php' );
 		include_once( 'inc/entries.php' );
 		include_once( 'inc/shortcode.php' );
 		include_once( 'inc/mailchimp.php' );
@@ -114,17 +117,6 @@ class CodeContest {
 	public function initializeShortcode() {
 		new Shortcode_Ajax();
 		new Shortcode();
-	}
-
-	public function check_code() {
-		echo 'test';
-		wp_die();
-		$codeClass = new Codes();
-		$code      = intval( $_POST['key'] );
-		$check     = $codeClass->checkKey( $code );
-
-		var_dump( $check );
-		wp_die();
 	}
 
 	/**
@@ -176,19 +168,6 @@ class CodeContest {
 		// TODO define your filter method here
 	}
 
-	/**
-	 * Render shortcode
-	 *
-	 * @param $atts
-	 */
-	function render_shortcode( $atts ) {
-		// Extract the attributes
-		extract( shortcode_atts( array(
-			'attr1' => 'foo', //foo is a default value
-			'attr2' => 'bar'
-		), $atts ) );
-		// you can now access the attribute values using $attr1 and $attr2
-	}
 
 	/**
 	 * Registers and enqueues stylesheets for the administration panel and the
@@ -198,36 +177,13 @@ class CodeContest {
 		if ( is_admin() ) {
 			wp_enqueue_media();
 			wp_enqueue_style( self::slug . '-admin-style', plugins_url( '/assets/admin.css', __FILE__ ), array(), '1.0.0', 'all' );
-			wp_enqueue_script( self::slug . '-admin-script', plugins_url( '/assets/admin.js', __FILE__ ), array(), '1.0.0', 'all' );
+			wp_enqueue_script( self::slug . '-admin-script', plugins_url( '/assets/admin.js', __FILE__ ), array( 'jquery' ), '1.0.0', 'all' );
+			wp_enqueue_script( self::slug . '-datatables', plugins_url( '/assets/jquery.dataTables.min.js', __FILE__ ), array( 'jquery' ), '1.0.0', 'all' );
 		} else {
 			wp_enqueue_style( self::slug . '-shortcode-style', plugins_url( '/assets/shortcode.css', __FILE__ ), array(), '1.0.0', 'all' );
-			wp_enqueue_script( self::slug . '-shortcode-script', plugins_url( '/assets/shortcode.js', __FILE__ ), array(), '1.0.0', 'all' );
+			wp_enqueue_script( self::slug . '-shortcode-script', plugins_url( '/assets/shortcode.js', __FILE__ ), array( 'jquery' ), '1.0.0', 'all' );
 		} // end if/else
 	} // end register_scripts_and_styles
-
-	/**
-	 * Helper function for registering and enqueueing scripts and styles.
-	 *
-	 * @name    The    ID to register with WordPress
-	 * @file_path        The path to the actual file
-	 * @is_script        Optional argument for if the incoming file_path is a JavaScript source file.
-	 */
-	private function load_file( $name, $file_path, $is_script = false ) {
-
-		$url  = plugins_url( $file_path, __FILE__ );
-		$file = plugin_dir_path( __FILE__ ) . $file_path;
-
-		if ( file_exists( $file ) ) {
-			if ( $is_script ) {
-				wp_register_script( $name, $url, array( 'jquery' ) ); //depends on jquery
-				wp_enqueue_script( $name );
-			} else {
-				wp_register_style( $name, $url );
-				wp_enqueue_style( $name );
-			} // end if
-		} // end if
-
-	} // end load_file
 
 } // end class
 

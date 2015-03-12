@@ -1,13 +1,10 @@
-<?
+<? namespace Undefined\CodeContest;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
 class Entries {
-
-	public function __construct() {
-
-	}
 
 	/**
 	 * Save entry to database
@@ -30,5 +27,18 @@ class Entries {
 				'code' => sanitize_text_field( $key )
 			)
 		);
+	}
+
+	/**
+	 * Return all entries
+	 *
+	 * @return mixed
+	 */
+	public function getAllEntries() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . "code_contest";
+
+		return $wpdb->get_results( 'SELECT * FROM ' . $table_name . ' WHERE  name != "" ', OBJECT );
+
 	}
 }
