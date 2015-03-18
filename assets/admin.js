@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
         $('#js-submit').on('click', function submitCodeGen() {
             var $result = $('#js-result');
             var data = {
-                'action': 'cc-generate_codes',
+                'action': 'cc-generateCodes',
                 'amount': $('.js-amount').val()
             };
 

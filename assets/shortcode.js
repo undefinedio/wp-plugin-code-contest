@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
     /**
-     * Variables injected through Wordpress php in footer (shortcode-ajax.php)
+     * Variables injected through Wordpress php in footer (ShortcodeAjax.php)
      */
     var currentUrl = window.codeContest.currentUrl;
     var ajaxUrl = window.codeContest.ajaxUrl;
