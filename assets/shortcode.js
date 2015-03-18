@@ -25,12 +25,12 @@ jQuery(document).ready(function ($) {
 
             $.post(ajaxUrl, data, function (response) {
                 if (response === "used") {
-                    $error.html('De code is al eens gebruikt, probeer een andere code.');
+                    $error.html('Oeps, deze code is al eens gebruikt!<br>Wil je toch nog kans maken op deze prijs? Probeer dan een andere code. Succes!');
                 } else if (response === "valid") {
                     $('#js-code-input').val(code);
                     switchPage('form');
                 } else {
-                    $error.html('De code klopt niet. Probeer opnieuw.');
+                    $error.html('Foutje getypt?<br>Deze code blijkt niet te kloppen. Probeer het nog eens!');
                 }
             });
         });
@@ -58,16 +58,16 @@ jQuery(document).ready(function ($) {
                 'newsletter': $('.js-checkbox-mailing').is(':checked')
             };
 
-            if(!$accept.is(':checked')){
+            if (!$accept.is(':checked')) {
                 $error.html('je moet de voorwaarden accepteren.');
-            }else if (!validateForm('#js-form .required')) {
-                $error.html('Niet alle velden zijn correct ingevuld.');
+            } else if (!validateForm('#js-form .required')) {
+                $error.html('Te snel geweest!<br>Je hebt enkele velden niet correct ingevuld. Vul ze nog een keer in zodat je zeker kans maakt op deze prijs.');
             } else {
                 $.post(ajaxUrl, data, function (response) {
                     if (response == "success") {
                         switchPage('thanks');
                     } else {
-                        $error.html('Oh nee! Er is precies iets mis gegaan. Probeer het later nog eens.');
+                        $error.html('Oei, er is iets mis gegaan.<br>Onze excuses hiervoor. Kom later nog eens terug om het opnieuw te proberen.');
                     }
                 });
             }
