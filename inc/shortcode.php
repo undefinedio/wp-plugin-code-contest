@@ -1,36 +1,40 @@
-<? namespace Undefined\CodeContest;
+<?
+namespace Undefined\CodeContest;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 } // Exit if accessed directly
 
-class Shortcode {
+class Shortcode
+{
 
-	public function __construct() {
-		add_shortcode( 'code-contest', array( &$this, 'code_contest_shortcode' ) );
-	}
+    public function __construct()
+    {
+        add_shortcode('code-contest', [&$this, 'codeContestShortcode']);
+    }
 
-	/**
-	 * Add shortcode logic
-	 *
-	 * @param $atts Default parameters from Wordpress
-	 */
-	public function code_contest_shortcode( $atts ) {
-		$options = get_option( 'cc_options' );
+    /**
+     * Add shortcode logic
+     *
+     * @param $atts Default parameters from Wordpress
+     */
+    public function codeContestShortcode($atts)
+    {
+        $options = get_option('cc_options');
 
-		include( $this->fetch_template() );
-	}
+        include($this->fetchTemplate());
+    }
 
-	/**
-	 * See if the default template is needed or if there is a custom template in theme folder
-	 *
-	 * @return string path to template
-	 */
-	private function fetch_template() {
-		$file = get_stylesheet_directory() . '/code-contest/shortcode.php';
+    /**
+     * See if the default template is needed or if there is a custom template in theme folder
+     *
+     * @return string path to template
+     */
+    private function fetchTemplate()
+    {
+        $file = get_stylesheet_directory() . '/code-contest/shortcode.php';
 
-		// check if file exists in theme folder else take default shortcode template
-		return ( file_exists( $file ) ) ? $file : sprintf( "%s/templates/shortcode.php", dirname( dirname( __FILE__ ) ) );
-	}
-
+        // check if file exists in theme folder else take default shortcode template
+        return (file_exists($file)) ? $file : sprintf("%s/templates/shortcode.php", dirname(dirname(__FILE__)));
+    }
 }
