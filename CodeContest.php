@@ -58,7 +58,7 @@ class CodeContest
      */
     function __construct()
     {
-        $new_version = '1.0.8';
+        $new_version = '1.0.9';
 
         if (get_option('CODE_CONTEST_VERSION_KEY') != $new_version) {
             $this->updateDatabaseTable();

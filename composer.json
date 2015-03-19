@@ -2,7 +2,7 @@
   "name": "undefinedio/wp-plugin-code-contest",
   "description": "Code contest wordpress plugin",
   "type": "wordpress-plugin",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "authors": [
     {
       "name": "Vincent Peters",
