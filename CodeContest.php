@@ -58,7 +58,7 @@ class CodeContest
      */
     function __construct()
     {
-        $new_version = '1.0.7';
+        $new_version = '1.0.8';
 
         if (get_option('CODE_CONTEST_VERSION_KEY') != $new_version) {
             $this->updateDatabaseTable();
@@ -98,7 +98,7 @@ class CodeContest
         include_once('inc/AdminPages.php');
         include_once('inc/AdminAjax.php');
         include_once('inc/CodeValidator.php');
-        include_once('inc/codeGenerator.php');
+        include_once('inc/CodeGenerator.php');
         include_once('inc/Entries.php');
         include_once('inc/Shortcode.php');
         include_once('inc/Mailchimp.php');

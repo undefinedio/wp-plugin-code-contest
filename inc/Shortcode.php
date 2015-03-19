@@ -10,6 +10,7 @@ class Shortcode
 
     public function __construct()
     {
+
         add_shortcode('code-contest', [&$this, 'codeContestShortcode']);
     }
 
