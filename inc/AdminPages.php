@@ -119,6 +119,14 @@ class AdminPages
         );
 
         add_settings_field(
+            'conditions', // ID
+            'Conditions upload', // Title
+            [$this, 'conditionsCallback'], // Callback
+            'code_contest', // Page
+            'cc_page' // Section
+        );
+
+        add_settings_field(
             'dev_title', // ID
             '<h2>Opties enkel voor developers</h2>', // Title
             [$this, 'devTitleCallback'], // Callback
@@ -234,20 +242,38 @@ class AdminPages
 
     public function imageCallback()
     {
-        $this->templateImageField('image');
+        $this->uploadImageField('image');
     }
 
     public function shareImageCallback()
     {
-        $this->templateImageField('share_image');
+        $this->uploadImageField('share_image');
     }
 
-    public function templateImageField($field)
+    public function conditionsCallback()
+    {
+        $this->uploadPdfField('conditions');
+    }
+
+    public function uploadImageField($field)
     {
         printf(
             "<input id='$field' name='cc_options[$field]' type='text' value='%1\$s'/>
-			<input id='" . $field . "_button' class='js-media-button button' name='" . $field . "_button' type='button' value='Upload'/><br>
+			<input id='" . $field . "_button' class='js-media-button button' name='" . $field . "_button' type='button' value='Upload'/>
+			<br>
 			<img id='" . $field . "_preview' class='js-image-preview image-preview'  src='%1\$s' alt='Image preview'/>",
+            isset($this->options[ $field ]) ? esc_attr($this->options[ $field ]) : ''
+        );
+    }
+
+
+    public function uploadPdfField($field)
+    {
+        printf(
+            "<input id='$field' name='cc_options[$field]' type='text' value='%1\$s'/>
+			<input id='" . $field . "_button' class='js-media-button button' name='" . $field . "_button' type='button' value='Upload'/>
+			<br>
+			<a target='_blank' id='" . $field . "_preview' href='%1\$s'>Download</a>",
             isset($this->options[ $field ]) ? esc_attr($this->options[ $field ]) : ''
         );
     }
