@@ -1,6 +1,6 @@
 {
   "name": "code_contest",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Code contest plugin for Wordpress",
   "main": "index.js",
   "scripts": {
