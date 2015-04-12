@@ -339,7 +339,7 @@ class AdminPages
     public function showEntriesTemplate()
     {
         $entries = $this->entries->getAllEntries();
-        include(sprintf("%s/templates/Entries.php", dirname(dirname(__FILE__))));
+        include(sprintf("%s/templates/entries.php", dirname(dirname(__FILE__))));
     }
 
     /**
