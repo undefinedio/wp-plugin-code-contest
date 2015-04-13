@@ -12,25 +12,12 @@ namespace Undefined\CodeContest;
 
     Plugin Name: Code Contest
     Plugin URI: http://unde.fined.io
-    Version: 0.1
+    Version: 1.1.0
     Author: Vincent Peters
     Author Email: vincent@unde.fined.io
     License:
 
-      Copyright 2011 Vincent Peters (vincent@unde.fined.io)
-
-      This program is free software; you can redistribute it and/or modify
-      it under the terms of the GNU General Public License, version 2, as
-      published by the Free Software Foundation.
-
-      This program is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      GNU General Public License for more details.
-
-      You should have received a copy of the GNU General Public License
-      along with this program; if not, write to the Free Software
-      Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+      Copyright 2015 Vincent Peters (vincent@unde.fined.io)
 
     */
 
@@ -58,7 +45,7 @@ class CodeContest
      */
     function __construct()
     {
-        $new_version = '1.0.12';
+        $new_version = '1.1.0';
 
         if (get_option('CODE_CONTEST_VERSION_KEY') != $new_version) {
             $this->updateDatabaseTable();
@@ -82,7 +69,7 @@ class CodeContest
 
         $sql = "CREATE TABLE $table_name (id mediumint(9) NOT NULL AUTO_INCREMENT, " .
             "code varchar(55) DEFAULT '' NOT NULL,email varchar(55) DEFAULT '' NOT NULL" .
-            ", name varchar(55) DEFAULT '' NOT NULL,UNIQUE KEY id (id)) $charset_collate;";
+            ", name varchar(55) DEFAULT '' NOT NULL, tiebreaker varchar(55) DEFAULT '' NOT NULL,UNIQUE KEY id (id)) $charset_collate;";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);

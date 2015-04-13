@@ -15,16 +15,18 @@ class Entries
      * @param $surname
      * @param $email
      * @param $key
+     * @param $tiebreaker
      */
-    public function saveEntry($name, $surname, $email, $key)
+    public function saveEntry($name, $surname, $email, $key, $tiebreaker)
     {
         global $wpdb;
         $table_name = $wpdb->prefix . "code_contest";
         $wpdb->update(
             $table_name,
             [
-                'email' => sanitize_text_field($email),
-                'name'  => sanitize_text_field($name) . " " . sanitize_text_field($surname)
+                'email'      => sanitize_text_field($email),
+                'tiebreaker' => sanitize_text_field($tiebreaker),
+                'name'       => sanitize_text_field($name) . " " . sanitize_text_field($surname)
             ],
             [
                 'code' => sanitize_text_field($key)

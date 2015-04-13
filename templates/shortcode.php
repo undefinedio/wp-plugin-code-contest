@@ -27,12 +27,16 @@
 
     <section class="form">
         <h1><?= $options['form_title']; ?></h1>
+
         <p><?= $options['form_copy']; ?></p>
 
         <form action="#" id="js-form">
             <input type="text" placeholder="Voornaam" class="required" value="" id="name"/>
             <input type="text" placeholder="Naam" class="required" value="" id="surname"/>
             <input type="email" placeholder="Email" class="required" value="" id="email"/>
+
+            <p>hoeveel deelnemers zijn er aan deze wedstrijd?</p>
+            <input type="text" placeholder="Schiftingsvraag" class="required" value="" id="tiebreaker"/>
 
             <input type="hidden" name="Code" value="" id="js-code-input">
 
