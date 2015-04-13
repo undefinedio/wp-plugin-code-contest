@@ -20,7 +20,9 @@ class ShortcodeAjax
         $this->options = get_option('cc_options');
 
         add_action('wp_ajax_cc-checkcode', [&$this, 'checkCode']);
+        add_action('wp_ajax_nopriv_cc-checkcode', [&$this, 'checkCode']);
         add_action('wp_ajax_cc-fillform', [&$this, 'enterContest']);
+        add_action('wp_ajax_nopriv_cc-fillform', [&$this, 'enterContest']);
         add_action('wp_head', [&$this, 'addAjaxLibrary']);
     }
 
@@ -58,7 +60,7 @@ class ShortcodeAjax
         }
 
         if ($this->codeValidator->isCodeValid($key) == "valid") {
-            $this->entryClass->saveEntry($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['key']);
+            $this->entryClass->saveEntry($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['key'], $_POST['tiebreaker']);
             echo "success";
         } else {
             echo "failed";

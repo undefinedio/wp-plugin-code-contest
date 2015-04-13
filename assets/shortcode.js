@@ -55,6 +55,7 @@ jQuery(document).ready(function ($) {
                 'name': $form.find('#name').val(),
                 'email': $form.find('#email').val(),
                 'surname': $form.find('#surname').val(),
+                'tiebreaker': $form.find('#tiebreaker').val(),
                 'newsletter': $('.js-checkbox-mailing').is(':checked')
             };
 
